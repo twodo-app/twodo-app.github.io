@@ -5638,9 +5638,78 @@ var author$project$Main$initialModel = {activeProject: author$project$Data$Proje
 var author$project$Main$init = function (flags) {
 	return _Utils_Tuple2(author$project$Main$initialModel, author$project$Main$initialCmd);
 };
+var author$project$Main$None = {$: 'None'};
+var author$project$Main$SetTheme = function (a) {
+	return {$: 'SetTheme', a: a};
+};
+var author$project$Ui$Colour$White = {$: 'White'};
+var author$project$Ui$Colour$white = author$project$Ui$Colour$White;
+var author$project$Ui$Theme$light = {
+	accent: author$project$Ui$Colour$white,
+	background: {
+		base: A2(author$project$Ui$Colour$lightenBy, 4, author$project$Ui$Colour$grey),
+		one: A2(author$project$Ui$Colour$lightenBy, 3, author$project$Ui$Colour$grey),
+		two: A2(author$project$Ui$Colour$lightenBy, 2, author$project$Ui$Colour$grey)
+	},
+	primary: author$project$Ui$Colour$indigo,
+	secondary: author$project$Ui$Colour$yellow,
+	text: {
+		base: A2(author$project$Ui$Colour$darkenBy, 3, author$project$Ui$Colour$grey),
+		muted: author$project$Ui$Colour$darken(author$project$Ui$Colour$grey)
+	}
+};
+var author$project$Main$updatateThemeFromString = function (themeString) {
+	switch (themeString) {
+		case 'light':
+			return elm$core$Maybe$Just(
+				author$project$Main$SetTheme(author$project$Ui$Theme$light));
+		case 'dark':
+			return elm$core$Maybe$Just(
+				author$project$Main$SetTheme(author$project$Ui$Theme$dark));
+		default:
+			return elm$core$Maybe$Nothing;
+	}
+};
+var elm$json$Json$Decode$string = _Json_decodeString;
+var author$project$Main$updateTheme = _Platform_incomingPort('updateTheme', elm$json$Json$Decode$string);
+var elm$core$Basics$composeR = F3(
+	function (f, g, x) {
+		return g(
+			f(x));
+	});
+var elm$core$Maybe$map = F2(
+	function (f, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return elm$core$Maybe$Just(
+				f(value));
+		} else {
+			return elm$core$Maybe$Nothing;
+		}
+	});
+var elm$core$Maybe$withDefault = F2(
+	function (_default, maybe) {
+		if (maybe.$ === 'Just') {
+			var value = maybe.a;
+			return value;
+		} else {
+			return _default;
+		}
+	});
 var elm$core$Platform$Sub$batch = _Platform_batch;
 var author$project$Main$subscriptions = function (model) {
-	return elm$core$Platform$Sub$batch(_List_Nil);
+	return elm$core$Platform$Sub$batch(
+		_List_fromArray(
+			[
+				author$project$Main$updateTheme(
+				A2(
+					elm$core$Basics$composeR,
+					author$project$Main$updatateThemeFromString,
+					A2(
+						elm$core$Basics$composeR,
+						elm$core$Maybe$map(author$project$Main$Intent),
+						elm$core$Maybe$withDefault(author$project$Main$None))))
+			]));
 };
 var elm$core$Platform$Cmd$none = elm$core$Platform$Cmd$batch(_List_Nil);
 var author$project$Main$updateByFact = F2(
@@ -5650,31 +5719,42 @@ var author$project$Main$updateByFact = F2(
 var author$project$Data$Project$empty = {endDate: 'and Forever...', startDate: 'Now', tasks: _List_Nil, title: 'Your next big project.'};
 var author$project$Main$updateByIntent = F2(
 	function (intent, model) {
-		if (intent.$ === 'NewProject') {
-			return _Utils_Tuple2(
-				_Utils_update(
-					model,
-					{
-						projects: A2(elm$core$List$cons, author$project$Data$Project$empty, model.projects)
-					}),
-				elm$core$Platform$Cmd$none);
-		} else {
-			var activeProject = intent.a;
-			return _Utils_Tuple2(
-				_Utils_update(
-					model,
-					{activeProject: activeProject}),
-				elm$core$Platform$Cmd$none);
+		switch (intent.$) {
+			case 'NewProject':
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{
+							projects: A2(elm$core$List$cons, author$project$Data$Project$empty, model.projects)
+						}),
+					elm$core$Platform$Cmd$none);
+			case 'ToggleActiveProject':
+				var activeProject = intent.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{activeProject: activeProject}),
+					elm$core$Platform$Cmd$none);
+			default:
+				var theme = intent.a;
+				return _Utils_Tuple2(
+					_Utils_update(
+						model,
+						{theme: theme}),
+					elm$core$Platform$Cmd$none);
 		}
 	});
 var author$project$Main$update = F2(
 	function (msg, model) {
-		if (msg.$ === 'Intent') {
-			var intent = msg.a;
-			return A2(author$project$Main$updateByIntent, intent, model);
-		} else {
-			var fact = msg.a;
-			return A2(author$project$Main$updateByFact, fact, model);
+		switch (msg.$) {
+			case 'Intent':
+				var intent = msg.a;
+				return A2(author$project$Main$updateByIntent, intent, model);
+			case 'Fact':
+				var fact = msg.a;
+				return A2(author$project$Main$updateByFact, fact, model);
+			default:
+				return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
 		}
 	});
 var author$project$Ui$Colour$toString = function (c) {
@@ -5862,11 +5942,6 @@ var author$project$Main$NewProject = {$: 'NewProject'};
 var author$project$Main$ToggleActiveProject = function (a) {
 	return {$: 'ToggleActiveProject', a: a};
 };
-var elm$core$Basics$composeR = F3(
-	function (f, g, x) {
-		return g(
-			f(x));
-	});
 var elm$html$Html$button = _VirtualDom_node('button');
 var author$project$Ui$Button$circular = F3(
 	function (attrs, colour, text) {
@@ -6994,15 +7069,6 @@ var elm$core$Dict$isEmpty = function (dict) {
 		return false;
 	}
 };
-var elm$core$Maybe$withDefault = F2(
-	function (_default, maybe) {
-		if (maybe.$ === 'Just') {
-			var value = maybe.a;
-			return value;
-		} else {
-			return _default;
-		}
-	});
 var elm$browser$Debugger$Expando$viewExtraTiny = function (value) {
 	if (value.$ === 'Record') {
 		var record = value.b;
@@ -8047,7 +8113,6 @@ var elm$browser$Debugger$Metadata$Alias = F2(
 	});
 var elm$json$Json$Decode$field = _Json_decodeField;
 var elm$json$Json$Decode$list = _Json_decodeList;
-var elm$json$Json$Decode$string = _Json_decodeString;
 var elm$browser$Debugger$Metadata$decodeAlias = A3(
 	elm$json$Json$Decode$map2,
 	elm$browser$Debugger$Metadata$Alias,
@@ -10259,7 +10324,7 @@ var author$project$Main$main = elm$browser$Browser$element(
 			elm$html$Html$map(author$project$Main$Intent))
 	});
 _Platform_export({'Main':{'init':author$project$Main$main(
-	elm$json$Json$Decode$succeed(_Utils_Tuple0))({"versions":{"elm":"0.19.0"},"types":{"message":"Main.Msg","aliases":{},"unions":{"Main.Msg":{"args":[],"tags":{"Intent":["Main.Intent"],"Fact":["Main.Fact"]}},"Main.Fact":{"args":[],"tags":{"NoOp":[]}},"Main.Intent":{"args":[],"tags":{"NewProject":[],"ToggleActiveProject":["Data.Project.ProjectSelection"]}},"Data.Project.ProjectSelection":{"args":[],"tags":{"ProjectSelection":["Basics.Int"],"None":[]}},"Basics.Int":{"args":[],"tags":{"Int":[]}}}}})}});
+	elm$json$Json$Decode$succeed(_Utils_Tuple0))({"versions":{"elm":"0.19.0"},"types":{"message":"Main.Msg","aliases":{"Ui.Theme.Theme":{"args":[],"type":"{ primary : Ui.Colour.Colour, secondary : Ui.Colour.Colour, accent : Ui.Colour.Colour, background : { base : Ui.Colour.Colour, one : Ui.Colour.Colour, two : Ui.Colour.Colour }, text : { base : Ui.Colour.Colour, muted : Ui.Colour.Colour } }"}},"unions":{"Main.Msg":{"args":[],"tags":{"Intent":["Main.Intent"],"Fact":["Main.Fact"],"None":[]}},"Main.Fact":{"args":[],"tags":{"NoOp":[]}},"Main.Intent":{"args":[],"tags":{"NewProject":[],"ToggleActiveProject":["Data.Project.ProjectSelection"],"SetTheme":["Ui.Theme.Theme"]}},"Data.Project.ProjectSelection":{"args":[],"tags":{"ProjectSelection":["Basics.Int"],"None":[]}},"Ui.Colour.Colour":{"args":[],"tags":{"Black":[],"White":[],"Grey":["Basics.Int"],"Red":["Basics.Int"],"Orange":["Basics.Int"],"Yellow":["Basics.Int"],"Green":["Basics.Int"],"Teal":["Basics.Int"],"Blue":["Basics.Int"],"Indigo":["Basics.Int"],"Purple":["Basics.Int"],"Pink":["Basics.Int"]}},"Basics.Int":{"args":[],"tags":{"Int":[]}}}}})}});
 
 //////////////////// HMR BEGIN ////////////////////
 
@@ -10879,7 +10944,15 @@ var flags = {};
 (0, _elmPromisify.promisify)(_Main.Elm.Main, {
   node: node,
   flags: flags
-}).then(function (app) {});
+}).then(function (app) {
+  window.darkMode = function () {
+    return app.ports.updateTheme.send('dark');
+  };
+
+  window.lightMode = function () {
+    return app.ports.updateTheme.send('light');
+  };
+});
 },{"../elm/Main.elm":"elm/Main.elm","elm-promisify":"../node_modules/elm-promisify/index.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -10908,7 +10981,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54223" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54409" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
