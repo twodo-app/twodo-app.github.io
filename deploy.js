@@ -12,7 +12,7 @@ function deploy () {
     minify: true,
     scopeHoist: false,
     target: 'browser',
-    bundleNodeModules: false,
+    bundleNodeModules: true,
     sourceMaps: false,
     detailedReport: true,
     autoInstall: true
