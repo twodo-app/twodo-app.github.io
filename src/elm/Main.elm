@@ -1,4 +1,4 @@
-module Main exposing (main)
+port module Main exposing (main)
 
 -- Imports ---------------------------------------------------------------------
 import Browser
@@ -10,6 +10,9 @@ import Data.Task as Task exposing (Task)
 import Html exposing (Html)
 import Html.Attributes as Attr
 import Html.Events as Event
+
+-- Ports -----------------------------------------------------------------------
+port updateTheme : (String -> msg) -> Sub msg
 
 -- Main ------------------------------------------------------------------------
 -- For now Flags is an alias for an empty tuple, commonly referred to as _the_
@@ -69,12 +72,14 @@ init flags =
 type Msg
   = Intent Intent
   | Fact Fact 
+  | None
 
 -- The `Intent` type is used when we want to tell the update function **to do
 -- something**. 
 type Intent
   = NewProject
   | ToggleActiveProject ProjectSelection
+  | SetTheme Theme
 
 -- The `Fact` type is used when we want to tell the update function **something
 -- has happened**.
@@ -90,6 +95,9 @@ update msg model =
 
     Fact fact ->
       updateByFact fact model
+
+    None ->
+      ( model, Cmd.none )
     
 --
 updateByIntent : Intent -> Model -> ( Model, Cmd Msg )
@@ -102,6 +110,11 @@ updateByIntent intent model =
 
     ToggleActiveProject activeProject ->
       ( { model | activeProject = activeProject }
+      , Cmd.none
+      )
+
+    SetTheme theme ->
+      ( { model | theme = theme }
       , Cmd.none
       )
 
@@ -180,5 +193,17 @@ notesSection task theme =
 subscriptions : Model -> Sub Msg
 subscriptions model =
   Sub.batch
-    [
+    [ updateTheme (updatateThemeFromString >> Maybe.map Intent >> Maybe.withDefault None)
     ]
+
+updatateThemeFromString : String -> Maybe Intent
+updatateThemeFromString themeString =
+  case themeString of
+    "light" ->
+      Just <| SetTheme Ui.Theme.light
+
+    "dark" ->
+      Just <| SetTheme Ui.Theme.dark
+
+    _ ->
+      Nothing
