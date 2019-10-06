@@ -4990,6 +4990,9 @@ function _Browser_load(url)
 		}
 	}));
 }
+var author$project$Main$Intent = function (a) {
+	return {$: 'Intent', a: a};
+};
 var elm$core$Basics$False = {$: 'False'};
 var elm$core$Basics$True = {$: 'True'};
 var elm$core$Result$isOk = function (result) {
@@ -5467,7 +5470,171 @@ var elm$json$Json$Decode$errorToStringHelp = F2(
 	});
 var elm$core$Platform$Cmd$batch = _Platform_batch;
 var author$project$Main$initialCmd = elm$core$Platform$Cmd$batch(_List_Nil);
-var author$project$Main$initialModel = {};
+var author$project$Data$Project$None = {$: 'None'};
+var author$project$Data$Project$deselect = author$project$Data$Project$None;
+var author$project$Ui$Colour$Black = {$: 'Black'};
+var author$project$Ui$Colour$black = author$project$Ui$Colour$Black;
+var author$project$Ui$Colour$Blue = function (a) {
+	return {$: 'Blue', a: a};
+};
+var author$project$Ui$Colour$Green = function (a) {
+	return {$: 'Green', a: a};
+};
+var author$project$Ui$Colour$Grey = function (a) {
+	return {$: 'Grey', a: a};
+};
+var author$project$Ui$Colour$Indigo = function (a) {
+	return {$: 'Indigo', a: a};
+};
+var author$project$Ui$Colour$Orange = function (a) {
+	return {$: 'Orange', a: a};
+};
+var author$project$Ui$Colour$Pink = function (a) {
+	return {$: 'Pink', a: a};
+};
+var author$project$Ui$Colour$Purple = function (a) {
+	return {$: 'Purple', a: a};
+};
+var author$project$Ui$Colour$Red = function (a) {
+	return {$: 'Red', a: a};
+};
+var author$project$Ui$Colour$Teal = function (a) {
+	return {$: 'Teal', a: a};
+};
+var author$project$Ui$Colour$Yellow = function (a) {
+	return {$: 'Yellow', a: a};
+};
+var author$project$Ui$Colour$darken = function (c) {
+	switch (c.$) {
+		case 'Black':
+			return author$project$Ui$Colour$Black;
+		case 'White':
+			return author$project$Ui$Colour$Black;
+		case 'Grey':
+			var shade = c.a;
+			return (shade < 900) ? author$project$Ui$Colour$Grey(shade + 100) : author$project$Ui$Colour$Grey(shade);
+		case 'Red':
+			var shade = c.a;
+			return (shade < 900) ? author$project$Ui$Colour$Red(shade + 100) : author$project$Ui$Colour$Red(shade);
+		case 'Orange':
+			var shade = c.a;
+			return (shade < 900) ? author$project$Ui$Colour$Orange(shade + 100) : author$project$Ui$Colour$Orange(shade);
+		case 'Yellow':
+			var shade = c.a;
+			return (shade < 900) ? author$project$Ui$Colour$Yellow(shade + 100) : author$project$Ui$Colour$Yellow(shade);
+		case 'Green':
+			var shade = c.a;
+			return (shade < 900) ? author$project$Ui$Colour$Green(shade + 100) : author$project$Ui$Colour$Green(shade);
+		case 'Teal':
+			var shade = c.a;
+			return (shade < 900) ? author$project$Ui$Colour$Teal(shade + 100) : author$project$Ui$Colour$Teal(shade);
+		case 'Blue':
+			var shade = c.a;
+			return (shade < 900) ? author$project$Ui$Colour$Blue(shade + 100) : author$project$Ui$Colour$Blue(shade);
+		case 'Indigo':
+			var shade = c.a;
+			return (shade < 900) ? author$project$Ui$Colour$Indigo(shade + 100) : author$project$Ui$Colour$Indigo(shade);
+		case 'Purple':
+			var shade = c.a;
+			return (shade < 900) ? author$project$Ui$Colour$Purple(shade + 100) : author$project$Ui$Colour$Purple(shade);
+		default:
+			var shade = c.a;
+			return (shade < 900) ? author$project$Ui$Colour$Pink(shade + 100) : author$project$Ui$Colour$Pink(shade);
+	}
+};
+var elm$core$List$repeatHelp = F3(
+	function (result, n, value) {
+		repeatHelp:
+		while (true) {
+			if (n <= 0) {
+				return result;
+			} else {
+				var $temp$result = A2(elm$core$List$cons, value, result),
+					$temp$n = n - 1,
+					$temp$value = value;
+				result = $temp$result;
+				n = $temp$n;
+				value = $temp$value;
+				continue repeatHelp;
+			}
+		}
+	});
+var elm$core$List$repeat = F2(
+	function (n, value) {
+		return A3(elm$core$List$repeatHelp, _List_Nil, n, value);
+	});
+var author$project$Ui$Colour$darkenBy = F2(
+	function (n, colour) {
+		return A3(
+			elm$core$List$foldl,
+			elm$core$Basics$apL,
+			colour,
+			A2(elm$core$List$repeat, n, author$project$Ui$Colour$darken));
+	});
+var author$project$Ui$Colour$grey = author$project$Ui$Colour$Grey(500);
+var author$project$Ui$Colour$indigo = author$project$Ui$Colour$Indigo(500);
+var author$project$Ui$Colour$lighten = function (c) {
+	switch (c.$) {
+		case 'Black':
+			return author$project$Ui$Colour$Black;
+		case 'White':
+			return author$project$Ui$Colour$Black;
+		case 'Grey':
+			var shade = c.a;
+			return (shade > 100) ? author$project$Ui$Colour$Grey(shade - 100) : author$project$Ui$Colour$Grey(shade);
+		case 'Red':
+			var shade = c.a;
+			return (shade > 100) ? author$project$Ui$Colour$Red(shade - 100) : author$project$Ui$Colour$Red(shade);
+		case 'Orange':
+			var shade = c.a;
+			return (shade > 100) ? author$project$Ui$Colour$Orange(shade - 100) : author$project$Ui$Colour$Orange(shade);
+		case 'Yellow':
+			var shade = c.a;
+			return (shade > 100) ? author$project$Ui$Colour$Yellow(shade - 100) : author$project$Ui$Colour$Yellow(shade);
+		case 'Green':
+			var shade = c.a;
+			return (shade > 100) ? author$project$Ui$Colour$Green(shade - 100) : author$project$Ui$Colour$Green(shade);
+		case 'Teal':
+			var shade = c.a;
+			return (shade > 100) ? author$project$Ui$Colour$Teal(shade - 100) : author$project$Ui$Colour$Teal(shade);
+		case 'Blue':
+			var shade = c.a;
+			return (shade > 100) ? author$project$Ui$Colour$Blue(shade - 100) : author$project$Ui$Colour$Blue(shade);
+		case 'Indigo':
+			var shade = c.a;
+			return (shade > 100) ? author$project$Ui$Colour$Indigo(shade - 100) : author$project$Ui$Colour$Indigo(shade);
+		case 'Purple':
+			var shade = c.a;
+			return (shade > 100) ? author$project$Ui$Colour$Purple(shade - 100) : author$project$Ui$Colour$Purple(shade);
+		default:
+			var shade = c.a;
+			return (shade > 100) ? author$project$Ui$Colour$Pink(shade - 100) : author$project$Ui$Colour$Pink(shade);
+	}
+};
+var author$project$Ui$Colour$lightenBy = F2(
+	function (n, colour) {
+		return A3(
+			elm$core$List$foldl,
+			elm$core$Basics$apL,
+			colour,
+			A2(elm$core$List$repeat, n, author$project$Ui$Colour$lighten));
+	});
+var author$project$Ui$Colour$yellow = author$project$Ui$Colour$Yellow(500);
+var author$project$Ui$Theme$dark = {
+	accent: author$project$Ui$Colour$black,
+	background: {
+		base: A2(author$project$Ui$Colour$darkenBy, 4, author$project$Ui$Colour$grey),
+		one: A2(author$project$Ui$Colour$darkenBy, 3, author$project$Ui$Colour$grey),
+		two: A2(author$project$Ui$Colour$darkenBy, 2, author$project$Ui$Colour$grey)
+	},
+	primary: author$project$Ui$Colour$indigo,
+	secondary: author$project$Ui$Colour$yellow,
+	text: {
+		base: A2(author$project$Ui$Colour$lightenBy, 4, author$project$Ui$Colour$grey),
+		muted: A2(author$project$Ui$Colour$lightenBy, 2, author$project$Ui$Colour$grey)
+	}
+};
+var author$project$Main$initialModel = {activeProject: author$project$Data$Project$deselect, projects: _List_Nil, theme: author$project$Ui$Theme$dark};
 var author$project$Main$init = function (flags) {
 	return _Utils_Tuple2(author$project$Main$initialModel, author$project$Main$initialCmd);
 };
@@ -5476,10 +5643,79 @@ var author$project$Main$subscriptions = function (model) {
 	return elm$core$Platform$Sub$batch(_List_Nil);
 };
 var elm$core$Platform$Cmd$none = elm$core$Platform$Cmd$batch(_List_Nil);
-var author$project$Main$update = F2(
-	function (msg, model) {
+var author$project$Main$updateByFact = F2(
+	function (fact, model) {
 		return _Utils_Tuple2(model, elm$core$Platform$Cmd$none);
 	});
+var author$project$Data$Project$empty = {endDate: 'and Forever...', startDate: 'Now', tasks: _List_Nil, title: 'Your next big project.'};
+var author$project$Main$updateByIntent = F2(
+	function (intent, model) {
+		if (intent.$ === 'NewProject') {
+			return _Utils_Tuple2(
+				_Utils_update(
+					model,
+					{
+						projects: A2(elm$core$List$cons, author$project$Data$Project$empty, model.projects)
+					}),
+				elm$core$Platform$Cmd$none);
+		} else {
+			var activeProject = intent.a;
+			return _Utils_Tuple2(
+				_Utils_update(
+					model,
+					{activeProject: activeProject}),
+				elm$core$Platform$Cmd$none);
+		}
+	});
+var author$project$Main$update = F2(
+	function (msg, model) {
+		if (msg.$ === 'Intent') {
+			var intent = msg.a;
+			return A2(author$project$Main$updateByIntent, intent, model);
+		} else {
+			var fact = msg.a;
+			return A2(author$project$Main$updateByFact, fact, model);
+		}
+	});
+var author$project$Ui$Colour$toString = function (c) {
+	switch (c.$) {
+		case 'Black':
+			return 'black';
+		case 'White':
+			return 'white';
+		case 'Grey':
+			var shade = c.a;
+			return 'gray-' + elm$core$String$fromInt(shade);
+		case 'Red':
+			var shade = c.a;
+			return 'red-' + elm$core$String$fromInt(shade);
+		case 'Orange':
+			var shade = c.a;
+			return 'orange-' + elm$core$String$fromInt(shade);
+		case 'Yellow':
+			var shade = c.a;
+			return 'yellow-' + elm$core$String$fromInt(shade);
+		case 'Green':
+			var shade = c.a;
+			return 'green-' + elm$core$String$fromInt(shade);
+		case 'Teal':
+			var shade = c.a;
+			return 'teal-' + elm$core$String$fromInt(shade);
+		case 'Blue':
+			var shade = c.a;
+			return 'blue-' + elm$core$String$fromInt(shade);
+		case 'Indigo':
+			var shade = c.a;
+			return 'indigo-' + elm$core$String$fromInt(shade);
+		case 'Purple':
+			var shade = c.a;
+			return 'purple-' + elm$core$String$fromInt(shade);
+		default:
+			var shade = c.a;
+			return 'pink=' + elm$core$String$fromInt(shade);
+	}
+};
+var elm$json$Json$Encode$string = _Json_wrap;
 var elm$core$Basics$identity = function (x) {
 	return x;
 };
@@ -5498,10 +5734,6 @@ var elm$virtual_dom$VirtualDom$toHandlerInt = function (handler) {
 			return 3;
 	}
 };
-var elm$html$Html$div = _VirtualDom_node('div');
-var elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
-var elm$html$Html$text = elm$virtual_dom$VirtualDom$text;
-var elm$json$Json$Encode$string = _Json_wrap;
 var elm$html$Html$Attributes$stringProperty = F2(
 	function (key, string) {
 		return A2(
@@ -5510,46 +5742,283 @@ var elm$html$Html$Attributes$stringProperty = F2(
 			elm$json$Json$Encode$string(string));
 	});
 var elm$html$Html$Attributes$class = elm$html$Html$Attributes$stringProperty('className');
+var author$project$Ui$Colour$toBackground = function (c) {
+	return elm$html$Html$Attributes$class(
+		'bg-' + author$project$Ui$Colour$toString(c));
+};
+var author$project$Ui$Colour$toText = function (c) {
+	return elm$html$Html$Attributes$class(
+		'text-' + author$project$Ui$Colour$toString(c));
+};
+var elm$html$Html$section = _VirtualDom_node('section');
+var elm$html$Html$span = _VirtualDom_node('span');
+var elm$virtual_dom$VirtualDom$text = _VirtualDom_text;
+var elm$html$Html$text = elm$virtual_dom$VirtualDom$text;
 var elm$html$Html$Attributes$id = elm$html$Html$Attributes$stringProperty('id');
+var author$project$Main$notesSection = F2(
+	function (task, theme) {
+		return A2(
+			elm$html$Html$section,
+			_List_fromArray(
+				[
+					elm$html$Html$Attributes$id('notes'),
+					elm$html$Html$Attributes$class('p-4 flex items-center justify-center'),
+					author$project$Ui$Colour$toBackground(theme.background.base)
+				]),
+			_List_fromArray(
+				[
+					A2(
+					elm$html$Html$span,
+					_List_fromArray(
+						[
+							elm$html$Html$Attributes$class('mx-4 font-bold text-2xl'),
+							author$project$Ui$Colour$toText(theme.text.muted)
+						]),
+					_List_fromArray(
+						[
+							elm$html$Html$text('Select a task to begin taking notes.')
+						]))
+				]));
+	});
+var author$project$Data$Project$isSelected = F2(
+	function (i, selectedProject) {
+		if (selectedProject.$ === 'ProjectSelection') {
+			var n = selectedProject.a;
+			return _Utils_eq(i, n);
+		} else {
+			return false;
+		}
+	});
+var author$project$Data$Project$ProjectSelection = function (a) {
+	return {$: 'ProjectSelection', a: a};
+};
+var author$project$Data$Project$select = function (n) {
+	return author$project$Data$Project$ProjectSelection(n);
+};
+var author$project$Data$Project$toggleSelection = F2(
+	function (i, selectedProject) {
+		return A2(author$project$Data$Project$isSelected, i, selectedProject) ? author$project$Data$Project$deselect : author$project$Data$Project$select(i);
+	});
+var author$project$Data$Project$classes = F2(
+	function (theme, isActive) {
+		return _List_fromArray(
+			[
+				elm$html$Html$Attributes$class('h-32 p-4 m-4 shadow'),
+				elm$html$Html$Attributes$class(
+				isActive ? ('rounded-l-xl pl-8 border-r-8 border-' + author$project$Ui$Colour$toString(theme.primary)) : ' rounded-lg'),
+				author$project$Ui$Colour$toBackground(theme.background.base),
+				elm$html$Html$Attributes$class(
+				'hover:bg-' + author$project$Ui$Colour$toString(theme.accent))
+			]);
+	});
+var elm$html$Html$div = _VirtualDom_node('div');
+var elm$html$Html$h1 = _VirtualDom_node('h1');
+var elm$html$Html$p = _VirtualDom_node('p');
+var author$project$Data$Project$view = F3(
+	function (theme, project, active) {
+		return A2(
+			elm$html$Html$div,
+			A2(author$project$Data$Project$classes, theme, active),
+			_List_fromArray(
+				[
+					A2(
+					elm$html$Html$h1,
+					_List_fromArray(
+						[
+							elm$html$Html$Attributes$class('text-xl font-bold'),
+							author$project$Ui$Colour$toText(theme.text.base)
+						]),
+					_List_fromArray(
+						[
+							elm$html$Html$text(project.title)
+						])),
+					A2(
+					elm$html$Html$div,
+					_List_fromArray(
+						[
+							elm$html$Html$Attributes$class('text-sm font-bold'),
+							author$project$Ui$Colour$toText(theme.text.muted)
+						]),
+					_List_fromArray(
+						[
+							A2(
+							elm$html$Html$p,
+							_List_Nil,
+							_List_fromArray(
+								[
+									elm$html$Html$text(project.startDate)
+								])),
+							A2(
+							elm$html$Html$p,
+							_List_Nil,
+							_List_fromArray(
+								[
+									elm$html$Html$text(project.endDate)
+								]))
+						]))
+				]));
+	});
+var author$project$Main$NewProject = {$: 'NewProject'};
+var author$project$Main$ToggleActiveProject = function (a) {
+	return {$: 'ToggleActiveProject', a: a};
+};
+var elm$core$Basics$composeR = F3(
+	function (f, g, x) {
+		return g(
+			f(x));
+	});
+var elm$html$Html$button = _VirtualDom_node('button');
+var author$project$Ui$Button$circular = F3(
+	function (attrs, colour, text) {
+		return A2(
+			elm$html$Html$button,
+			_Utils_ap(
+				attrs,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$class('rounded-full h-10 w-10 flex items-center justify-center shadow'),
+						elm$html$Html$Attributes$class(
+						'bg-' + author$project$Ui$Colour$toString(colour)),
+						elm$html$Html$Attributes$class(
+						'hover:bg-' + A2(elm$core$Basics$composeR, author$project$Ui$Colour$darken, author$project$Ui$Colour$toString)(colour))
+					])),
+			_List_fromArray(
+				[
+					elm$html$Html$text(text)
+				]));
+	});
+var elm$html$Html$li = _VirtualDom_node('li');
+var elm$html$Html$ul = _VirtualDom_node('ul');
+var elm$virtual_dom$VirtualDom$Normal = function (a) {
+	return {$: 'Normal', a: a};
+};
+var elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
+var elm$html$Html$Events$on = F2(
+	function (event, decoder) {
+		return A2(
+			elm$virtual_dom$VirtualDom$on,
+			event,
+			elm$virtual_dom$VirtualDom$Normal(decoder));
+	});
+var elm$html$Html$Events$onClick = function (msg) {
+	return A2(
+		elm$html$Html$Events$on,
+		'click',
+		elm$json$Json$Decode$succeed(msg));
+};
+var author$project$Main$projectsSection = F2(
+	function (_n0, theme) {
+		var activeProject = _n0.activeProject;
+		var projects = _n0.projects;
+		var projectsList = A2(
+			elm$html$Html$ul,
+			_List_fromArray(
+				[
+					elm$html$Html$Attributes$class('overflow-y-scroll')
+				]),
+			A2(
+				elm$core$List$indexedMap,
+				F2(
+					function (i, project) {
+						return A2(
+							elm$html$Html$li,
+							_List_fromArray(
+								[
+									elm$html$Html$Events$onClick(
+									author$project$Main$ToggleActiveProject(
+										A2(author$project$Data$Project$toggleSelection, i, activeProject)))
+								]),
+							_List_fromArray(
+								[
+									A3(
+									author$project$Data$Project$view,
+									theme,
+									project,
+									A2(author$project$Data$Project$isSelected, i, activeProject))
+								]));
+					}),
+				projects));
+		return A2(
+			elm$html$Html$section,
+			_List_fromArray(
+				[
+					elm$html$Html$Attributes$id('projects'),
+					elm$html$Html$Attributes$class('p-4'),
+					author$project$Ui$Colour$toBackground(theme.background.two)
+				]),
+			_List_fromArray(
+				[
+					projectsList,
+					A2(
+					elm$html$Html$div,
+					_List_fromArray(
+						[
+							elm$html$Html$Attributes$class('flex items-center justify-center shadow-top')
+						]),
+					_List_fromArray(
+						[
+							A3(
+							author$project$Ui$Button$circular,
+							_List_fromArray(
+								[
+									elm$html$Html$Events$onClick(author$project$Main$NewProject)
+								]),
+							theme.primary,
+							'+')
+						]))
+				]));
+	});
+var author$project$Main$tasksSection = F2(
+	function (project, theme) {
+		if (project.$ === 'Just') {
+			var proj = project.a;
+			return A2(
+				elm$html$Html$section,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$id('tasks'),
+						elm$html$Html$Attributes$class('p-4'),
+						author$project$Ui$Colour$toBackground(theme.background.one)
+					]),
+				_List_Nil);
+		} else {
+			return A2(
+				elm$html$Html$section,
+				_List_fromArray(
+					[
+						elm$html$Html$Attributes$id('tasks'),
+						elm$html$Html$Attributes$class('p-4 flex items-center justify-center'),
+						author$project$Ui$Colour$toBackground(theme.background.one)
+					]),
+				_List_fromArray(
+					[
+						A2(
+						elm$html$Html$span,
+						_List_fromArray(
+							[
+								elm$html$Html$Attributes$class('mx-4 font-bold text-2xl'),
+								author$project$Ui$Colour$toText(theme.text.muted)
+							]),
+						_List_fromArray(
+							[
+								elm$html$Html$text('Select a project to view your active tasks.')
+							]))
+					]));
+		}
+	});
+var elm$html$Html$main_ = _VirtualDom_node('main');
 var author$project$Main$view = function (model) {
 	return A2(
-		elm$html$Html$div,
+		elm$html$Html$main_,
 		_List_fromArray(
 			[
 				elm$html$Html$Attributes$id('app')
 			]),
 		_List_fromArray(
 			[
-				A2(
-				elm$html$Html$div,
-				_List_fromArray(
-					[
-						elm$html$Html$Attributes$class('bg-gray-100')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text('days')
-					])),
-				A2(
-				elm$html$Html$div,
-				_List_fromArray(
-					[
-						elm$html$Html$Attributes$class('bg-gray-200')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text('tasks')
-					])),
-				A2(
-				elm$html$Html$div,
-				_List_fromArray(
-					[
-						elm$html$Html$Attributes$class('bg-gray-300')
-					]),
-				_List_fromArray(
-					[
-						elm$html$Html$text('current task')
-					]))
+				A2(author$project$Main$projectsSection, model, model.theme),
+				A2(author$project$Main$tasksSection, elm$core$Maybe$Nothing, model.theme),
+				A2(author$project$Main$notesSection, elm$core$Maybe$Nothing, model.theme)
 			]));
 };
 var elm$browser$Browser$External = function (a) {
@@ -5832,7 +6301,6 @@ var elm$browser$Debugger$Overlay$problemToString = function (problem) {
 			return 'virtual DOM values';
 	}
 };
-var elm$html$Html$li = _VirtualDom_node('li');
 var elm$browser$Debugger$Overlay$viewProblemType = function (_n0) {
 	var name = _n0.name;
 	var problems = _n0.problems;
@@ -5848,8 +6316,6 @@ var elm$browser$Debugger$Overlay$viewProblemType = function (_n0) {
 			]));
 };
 var elm$html$Html$a = _VirtualDom_node('a');
-var elm$html$Html$p = _VirtualDom_node('p');
-var elm$html$Html$ul = _VirtualDom_node('ul');
 var elm$html$Html$Attributes$href = function (url) {
 	return A2(
 		elm$html$Html$Attributes$stringProperty,
@@ -5905,26 +6371,8 @@ var elm$browser$Debugger$Overlay$viewBadMetadata = function (_n0) {
 };
 var elm$browser$Debugger$Overlay$Cancel = {$: 'Cancel'};
 var elm$browser$Debugger$Overlay$Proceed = {$: 'Proceed'};
-var elm$html$Html$button = _VirtualDom_node('button');
 var elm$virtual_dom$VirtualDom$style = _VirtualDom_style;
 var elm$html$Html$Attributes$style = elm$virtual_dom$VirtualDom$style;
-var elm$virtual_dom$VirtualDom$Normal = function (a) {
-	return {$: 'Normal', a: a};
-};
-var elm$virtual_dom$VirtualDom$on = _VirtualDom_on;
-var elm$html$Html$Events$on = F2(
-	function (event, decoder) {
-		return A2(
-			elm$virtual_dom$VirtualDom$on,
-			event,
-			elm$virtual_dom$VirtualDom$Normal(decoder));
-	});
-var elm$html$Html$Events$onClick = function (msg) {
-	return A2(
-		elm$html$Html$Events$on,
-		'click',
-		elm$json$Json$Decode$succeed(msg));
-};
 var elm$browser$Debugger$Overlay$viewButtons = function (buttons) {
 	var btn = F2(
 		function (msg, string) {
@@ -6036,7 +6484,6 @@ var elm$browser$Debugger$Overlay$viewMessage = F4(
 						]))
 				]));
 	});
-var elm$html$Html$span = _VirtualDom_node('span');
 var elm$browser$Debugger$Overlay$button = F2(
 	function (msg, label) {
 		return A2(
@@ -9802,9 +10249,17 @@ var elm$url$Url$fromString = function (str) {
 };
 var elm$browser$Browser$element = _Browser_element;
 var author$project$Main$main = elm$browser$Browser$element(
-	{init: author$project$Main$init, subscriptions: author$project$Main$subscriptions, update: author$project$Main$update, view: author$project$Main$view});
+	{
+		init: author$project$Main$init,
+		subscriptions: author$project$Main$subscriptions,
+		update: author$project$Main$update,
+		view: A2(
+			elm$core$Basics$composeR,
+			author$project$Main$view,
+			elm$html$Html$map(author$project$Main$Intent))
+	});
 _Platform_export({'Main':{'init':author$project$Main$main(
-	elm$json$Json$Decode$succeed(_Utils_Tuple0))({"versions":{"elm":"0.19.0"},"types":{"message":"Main.Msg","aliases":{},"unions":{"Main.Msg":{"args":[],"tags":{"NoOp":[]}}}}})}});
+	elm$json$Json$Decode$succeed(_Utils_Tuple0))({"versions":{"elm":"0.19.0"},"types":{"message":"Main.Msg","aliases":{},"unions":{"Main.Msg":{"args":[],"tags":{"Intent":["Main.Intent"],"Fact":["Main.Fact"]}},"Main.Fact":{"args":[],"tags":{"NoOp":[]}},"Main.Intent":{"args":[],"tags":{"NewProject":[],"ToggleActiveProject":["Data.Project.ProjectSelection"]}},"Data.Project.ProjectSelection":{"args":[],"tags":{"ProjectSelection":["Basics.Int"],"None":[]}},"Basics.Int":{"args":[],"tags":{"Int":[]}}}}})}});
 
 //////////////////// HMR BEGIN ////////////////////
 
@@ -10453,7 +10908,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56849" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51765" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
