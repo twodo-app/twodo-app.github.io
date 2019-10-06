@@ -20,6 +20,7 @@
     "gh-pages": "^2.1.1",
     "node-elm-compiler": "^5.0.4",
     "parcel-bundler": "^1.12.3",
-    "tailwindcss": "^1.1.2"
+    "tailwindcss": "^1.1.2",
+    "tailwindcss-plugins": "^0.3.0"
   }
 }
