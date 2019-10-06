@@ -1,5 +1,21 @@
 @tailwind base;
 @tailwind components;
+
+/* Apply a nice transition to all property changes. This is subtle but makes the
+** UI feel a lot less static and a bit more "native". 
+*/
+* {
+  transition: all 0.1s ease
+}
+
+/* I couldn't be bothered to work out how to add this to tailwind directly right
+** now, so instead this is a simple utility class that adds a shadow to just the
+** top of an element.
+*/
+.shadow-top {
+  box-shadow: 0 -5px 3px -5px rgba(0, 0, 0, 0.1)
+}
+
 @tailwind utilities;
 
 /* Layout ------------------------------------------------------------------- */
@@ -12,6 +28,12 @@
       100vh;
     max-height: 100vh;
     overflow: hidden;
+  }
+
+  #app > #projects {
+    display: grid;
+    grid-template-rows: 
+      1fr 75px;
   }
 }
 
