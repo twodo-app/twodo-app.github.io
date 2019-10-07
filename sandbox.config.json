@@ -4,5 +4,6 @@
   "view": "browser",
   "container": {
     "port": 1234
-  }
+  },
+  "template": "node"
 }
