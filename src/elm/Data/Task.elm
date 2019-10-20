@@ -1,13 +1,15 @@
 module Data.Task exposing
-  ( ..
+  ( Task
+  , view
+  , encode, decoder
   )
 
 -- Imports ---------------------------------------------------------------------
 import Html exposing (Html, Attribute)
-import Html.Attributes as Attr
-import Html.Events as Event
-import Json.Decode as Decode exposing (Decoder)
-import Json.Encode as Encode exposing (Value)
+import Html.Attributes exposing (..)
+import Html.Events exposing (..)
+import Json.Decode exposing (Decoder)
+import Json.Encode exposing (Value)
 
 -- Types -----------------------------------------------------------------------
 --
@@ -29,10 +31,10 @@ view task =
 --
 encode : Task -> Value
 encode task =
-  Encode.object
+  Json.Encode.object
     [
     ]
 
 decoder : Decoder Task
 decoder =
-  Decode.succeed {}
+  Json.Decode.succeed {}

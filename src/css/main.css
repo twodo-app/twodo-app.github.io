@@ -23,7 +23,7 @@
   #app {
     display: grid;
     grid-template-columns:
-      20vw 20vw 1fr;
+      25vw 25vw 1fr;
     grid-template-rows: 
       100vh;
     max-height: 100vh;

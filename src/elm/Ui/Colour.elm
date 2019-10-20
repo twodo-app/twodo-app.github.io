@@ -8,8 +8,7 @@ module Ui.Colour exposing
 
 -- Imports ---------------------------------------------------------------------
 import Html exposing (Html, Attribute)
-import Html.Attributes as Attr
-import Html.Events as Event
+import Html.Attributes exposing (..)
 
 -- Types -----------------------------------------------------------------------
 -- The colour type represents the palette of colours provided by default in
@@ -34,17 +33,29 @@ type Colour
 -- These functions create colours with a default shade of 500 (for non black or
 -- white colours). These can then be manipulated with `darken` and `lighten`
 -- below.
+black : Colour
 black = Black
+white : Colour
 white = White
+grey : Colour
 grey = Grey 500
+red : Colour
 red = Red 500
+orange : Colour
 orange = Orange 500
+yellow : Colour
 yellow = Yellow 500
+green : Colour
 green = Green 500
+teal : Colour
 teal = Teal 500
+blue : Colour
 blue = Blue 500
+indigo : Colour
 indigo = Indigo 500
+purple : Colour
 purple = Purple 500
+pink : Colour
 pink = Pink 500
 
 -- Increases the shade of a colour by 100. Ensures shades cannot go above 900
@@ -189,14 +200,14 @@ toString c =
 --
 toText : Colour -> Attribute msg
 toText c =
-  Attr.class <| "text-" ++ toString c
+  class <| "text-" ++ toString c
 
 --
 toBackground : Colour -> Attribute msg
 toBackground c =
-  Attr.class <| "bg-" ++ toString c
+  class <| "bg-" ++ toString c
 
 --
 toBorder : Colour -> Attribute msg
 toBorder c =
-  Attr.class <| "border-" ++ toString c
+  class <| "border-" ++ toString c

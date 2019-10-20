@@ -1,5 +1,6 @@
 module Ui.Theme exposing
-  ( ..
+  ( Theme
+  , light, dark
   )
 
 -- Imports ---------------------------------------------------------------------
